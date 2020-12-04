@@ -1,4 +1,4 @@
-import h5py
+import h5py, numpy
 
 f = h5py.File('a.h5', 'r')
 
@@ -15,7 +15,12 @@ for column in columns[:-1]:
 csv.write(columns[-1] + '\n')
 
 for row in metadata:
-    csv.write(str(row).replace('(', '').replace(')', '') + '\n')
+    row = list(row)
+    for value in row[:-1]:
+        if type(value) == numpy.bytes_:
+            value = value.decode('UTF-8').replace(',', '').replace("'", '').replace('"', '')
+        csv.write(str(value) + ', ')
+    csv.write(str(row[-1]) + '\n')
 
 csv.close()
 f.close()
