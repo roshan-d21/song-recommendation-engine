@@ -1,12 +1,12 @@
 import h5py, numpy
 
-f = h5py.File('a.h5', 'r')
+f = h5py.File('./data subset/a.h5', 'r')
 
 print(f.keys())
 
 metadata = f['metadata']['songs']
 
-csv = open('metadata.csv', 'w')
+csv = open('./data subset/metadata.csv', 'w')
 
 columns = metadata[0].dtype.names
 
